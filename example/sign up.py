@@ -6,7 +6,7 @@ try:
 except:
     pass
 
-token = input("Put code from https://roblox-thot.github.io/captchaCodeMaker/ here:\n")
+token = input("Put code here:\n")
 
 headers = {
     'authority': 'auth.roblox.com',
