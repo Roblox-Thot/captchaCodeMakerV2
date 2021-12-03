@@ -1,8 +1,6 @@
 from flask import Flask, render_template
-from wonderwords import RandomWord
-import requests, base64, random
+import requests
 app = Flask(__name__)
-r = RandomWord()
 
 #region Roblox
 
@@ -60,4 +58,5 @@ def hello_world():
 
 # run flask i guess
 if __name__ == '__main__':
+    
     app.run()
