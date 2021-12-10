@@ -1,5 +1,4 @@
-
-<!DOCTYPE html>
+<!DOCTYPE html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!-- Coded by Roblox Thot#0001 Do not claim you did this shit -->
 <html lang="en">
 
     <head>
@@ -72,12 +71,12 @@
 
         <script src="https://roblox-api.funcaptcha.com/fc/api/?onload=fcl" async ></script>
         <script>
-        /*
-        Code taken from StackOverFlow Im a lazy mf
-        Source: https://stackoverflow.com/a/30810322/17493527
-        */
-        function fallbackCopyTextToClipboard(text) {
-            var textArea = document.createElement("textarea");
+            /*
+            Code taken from StackOverFlow Im a lazy mf
+            Source: https://stackoverflow.com/a/30810322/17493527
+            */
+            function fallbackCopyTextToClipboard(text) {
+                var textArea = document.createElement("textarea");
                 textArea.value = text;
                 
                 // Avoid scrolling to bottom
@@ -92,9 +91,9 @@
                 try {
                     var successful = document.execCommand('copy');
                     var msg = successful ? 'successful' : 'unsuccessful';
-                    alert('Fallback: Copying text command was ' + msg);
+                    updateMessage('Fallback: Copying text command was ' + msg);
                 } catch (err) {
-                    console.error('Fallback: Oops, unable to copy', err);
+                    prompt('Fallback: Failed to auto copy please copy from below:', text);
                 }
 
                 document.body.removeChild(textArea);
@@ -105,32 +104,36 @@
                     return;
                 }
                 navigator.clipboard.writeText(text).then(function() {
-                    alert('Copying to clipboard was successful!');
+                    updateMessage('Copying to clipboard was successful!');
                 }, function(err) {
-                    console.error('Async: Could not copy text: ', err);
+                    prompt('Failed to auto copy please copy from below:', text);
                 });
             }
-            </script>
-        <script async>
-                function OnSolve() {
-                    const FCId = document.getElementById('FunCaptcha-ID').value
-                    const token = document.getElementById('FunCaptcha-Token').value
-                    copyTextToClipboard(btoa(FCId+","+token));
-                }
-
-                function loadChallenge() {
-                    new FunCaptcha({
-                        public_key: "{{ funCaptchaPublicKeys }}",
-                        target_html: "CAPTCHA",
-                        data:{blob:"{{ data }}"},
-                        callback: OnSolve
-                    });
-                }
-                window.addEventListener('load', function () {
-                    loadChallenge()
-                })
         </script>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script async>
+            function updateMessage(message){
+                document.querySelector("#message").innerText = message;
+            }
+
+            function OnSolve() {
+                const FCId = document.getElementById('FunCaptcha-ID').value;
+                const token = document.getElementById('FunCaptcha-Token').value;
+                copyTextToClipboard(btoa(FCId+","+token));
+            }
+
+            function loadChallenge() {
+                new FunCaptcha({
+                    public_key: "{{ funCaptchaPublicKeys }}",
+                    target_html: "CAPTCHA",
+                    data:{blob:"{{ data }}"},
+                    callback: OnSolve
+                });
+            }
+            window.addEventListener('load', function () {
+                loadChallenge()
+            })
+        </script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!-- Coded by Roblox Thot#0001 Do not claim you did this shit -->
     </head>
 
     <body>
@@ -140,7 +143,7 @@
             <input type="hidden" id="fc-token">
             <div id="CAPTCHA"></div>
         </form>
-        <div>{{ message }}</div>
+        <div id="message">{{ message }}</div>
     </body>
 
-</html>
+</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!-- Coded by Roblox Thot#0001 Do not claim you did this shit -->

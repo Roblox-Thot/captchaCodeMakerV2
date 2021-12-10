@@ -1,18 +1,30 @@
 from flask import Flask, render_template
 import requests
 app = Flask(__name__)
+#app.config['TEMPLATES_AUTO_RELOAD'] = True # Debug
 
-#region Roblox
+#region Roblox shit
 
-# Get current Public keys
-funCaptchaPublicKeys = requests.get("https://apis.rbxcdn.com/captcha/v1/metadata").json()["funCaptchaPublicKeys"]
+def funCaptchaPublicKeys(key = "ACTION_TYPE_WEB_SIGNUP"):
+    """
+    Gets current funcaptcha key
+    so if they update so does this
+
+    Args:
+        key (str, optional): Key name. Defaults to "ACTION_TYPE_WEB_SIGNUP".
+
+    Returns:
+        str: Current Funcaptcha public key
+    """
+    return requests.get("https://apis.rbxcdn.com/captcha/v1/metadata").json()["funCaptchaPublicKeys"][key]
 
 def getXsrf():
-    '''
+    """
     Fuck Roblox's Cross-site request forgery shit
 
-    Returns X-Csrf-token
-    '''
+    Returns:
+        str: X-Csrf-Token
+    """
     xsrHeader = requests.post("https://auth.roblox.com/v2/login", headers={
         "X-CSRF-TOKEN": ""
     }).headers['x-csrf-token']
@@ -20,11 +32,18 @@ def getXsrf():
 
 
 def getFieldData():
-    '''
+    """
     Get the field data code thingy That Roblox uses for captchas now
 
-    Returns the field data token used in captchas
-    '''
+    Returns:
+        str: Field data for captcha
+    
+    To read the codes do this::
+
+        data = getFieldData()
+        captchaId = data.split(",")[0]
+        captchaData = data.split(",")[1] #(not used for creating/logging into accounts
+    """
     headers = {
         'authority': 'auth.roblox.com',
         'x-csrf-token': getXsrf(),
@@ -39,18 +58,14 @@ def getFieldData():
 
 @app.route('/', methods=['GET'])
 def hello_world():
-    '''
+    """
     Renders out the captcha page when user goes to main page.
-    '''
-
-    '''
-    data[0] = captchaId
-    data[1] = captchaData (unused in creating/logging into accounts'''
+    """
     data = getFieldData().split(',')
 
     # Give the user the captcha page
     return render_template('getcode.html',
-                            funCaptchaPublicKeys = funCaptchaPublicKeys["ACTION_TYPE_WEB_SIGNUP"],
+                            funCaptchaPublicKeys = funCaptchaPublicKeys("ACTION_TYPE_WEB_SIGNUP"),
                             message = "Solve captcha to get the code!",
                             data = str( data[1]),
                             id = data[0]
@@ -59,4 +74,4 @@ def hello_world():
 # run flask i guess
 if __name__ == '__main__':
     
-    app.run()
+    app.run(port=80)

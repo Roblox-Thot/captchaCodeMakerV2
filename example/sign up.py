@@ -1,10 +1,6 @@
 # This code could be improved but its just a example on how to use the code from the site
 
 import requests, base64, random, string
-try:
-    import pyperclip
-except:
-    pass
 
 token = input("Put code here:\n")
 
@@ -50,6 +46,7 @@ try:
     print(f'login: {username}:{username[::-1]}')
     print(f'\nCookie:\n{cookie}')
     try: #trys to copy the cookie if you have pyperclip installed
+        import pyperclip
         pyperclip.copy(cookie)
     except:
         pass
