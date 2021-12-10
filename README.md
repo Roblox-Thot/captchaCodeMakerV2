@@ -2,7 +2,7 @@
 Make Roblox's signup funcaptcha code so you can send to discord bots (REMADE)
 
 ### Example on how to get the code after
-Will add a better example later!
+Better example [link](https://github.com/Roblox-Thot/captchaCodeMakerV2/blob/main/example/sign%20up.py)
 ```py
 import base64
 code = "Code here"
