@@ -7,7 +7,7 @@ Better example [link](https://github.com/Roblox-Thot/captchaCodeMakerV2/blob/mai
 ```py
 import base64
 code = "Code here"
-decoded = base64.b64decode(code).split(b',')
+decoded = base64.b64decode(code).decode('utf-8').split(',')
 captchaId = decoded[0]
 captchaToken = decoded[1]
 print(f'Captcha ID: {captchaId}')
