@@ -16,7 +16,7 @@ headers = {
 
 username = ''.join(random.choice(string.ascii_letters) for i in range(20))
 
-tokens = base64.b64decode(token).split(',')
+tokens = base64.b64decode(token).decode('utf-8').split(',')
 data = {
     "username":username,
     "password":username[::-1],
