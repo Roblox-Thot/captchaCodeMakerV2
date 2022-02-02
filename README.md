@@ -1,3 +1,5 @@
+# Curently looks like it's broken but I am working on other projects right now
+
 # captchaCodeMakerV2
 Make Roblox's signup funcaptcha code so you can send to discord bots (REMADE)<br>
 If this version is giving you a hard time try [mogolicoo's](https://github.com/mogolicoo/captchaCodeMaker) which is made in node.js<br>
