@@ -107,7 +107,7 @@
             selector: "#submit-id",
             onCompleted: function (response) {
                 console.log("onCompleted");
-                copyTextToClipboard(btoa("{{ id }"+","+response.token));
+                copyTextToClipboard(btoa("{{ id }},"+response.token));
             },
             onReady: function () {
                 console.log("onReady");
