@@ -8,14 +8,18 @@
             @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
             body {
                 background-color: darkslategrey;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                text-align: center;
             }
-
-            div{
-                color: white;
+            .center {
+                width: 20%;
+                height: 1.4rem;
+                
+                position: absolute;
+                top:0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                
+                margin: auto;
             }
 
             @-webkit-keyframes gradient {
@@ -101,40 +105,40 @@
         }
 
         function setupEnforcement(myEnforcement) {
-        myEnforcement.setConfig({
-            data: { blob: "{{ data }}" },
-            selector: "#submit-id",
-            onCompleted: function (response) {
-                console.log("onCompleted");
-                copyTextToClipboard(btoa("{{ id }}"+","+response.token));
-            },
-            onReady: function () {
-                console.log("onReady");
-            },
-            onReset: function () {
-                console.log("onReset");
-            },
-            onShow: function () {
-                console.log("onShow");
-            },
-            onShown: function () {
-                console.log("onShown");
-            },
-            onError: function (response) {
-                console.log("onError");
-            },
-        });
+            myEnforcement.setConfig({
+                data: { blob: "{{ data }}" },
+                selector: "#submit-id",
+                onCompleted: function (response) {
+                    console.log("onCompleted");
+                    copyTextToClipboard(btoa("{{ id }}"+","+response.token));
+                },
+                onReady: function () {
+                    console.log("onReady");
+                    document.querySelector("#submit-id").click();
+                },
+                onReset: function () {
+                    console.log("onReset");
+                },
+                onShow: function () {
+                    console.log("onShow");
+                },
+                onShown: function () {
+                    console.log("onShown");
+                },
+                onError: function (response) {
+                    console.log("onError");
+                },
+            });
         }
-            
         </script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!-- Coded by Roblox Thot#0001 Do not claim you did this shit -->
     </head>
 
     <body>
         <form method="post" target="_self">
-          <input type="submit" id="submit-id" onclick="return false;">
+          <input type="submit" id="submit-id" onclick="return false;" style="display: none;">
         </form>
-        <div id="message">{{ message }}</div>
+        <div class="center" id="message">{{ message }}</div>
     </body>
 
 </html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!-- Coded by Roblox Thot#0001 Do not claim you did this shit -->
