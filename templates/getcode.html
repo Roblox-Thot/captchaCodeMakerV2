@@ -8,14 +8,18 @@
             @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
             body {
                 background-color: darkslategrey;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                text-align: center;
             }
-
-            div{
+            .center {
+                width: 20%;
+                height: 1.4rem;
+                
+                position: absolute;
+                top:0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                
+                margin: auto;
                 color: white;
             }
 
@@ -49,7 +53,7 @@
         </style>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <script src="https://roblox-api.funcaptcha.com/fc/api/?onload=fcl" async ></script>
+        <script type="text/javascript" data-callback="setupEnforcement" src="//api.arkoselabs.com/v2/{{ funCaptchaPublicKeys }}/api.js" async defer></script>
         <script>
             /*
             Code taken from StackOverFlow Im a lazy mf
@@ -91,40 +95,51 @@
             }
         </script>
         <script async>
-            function updateMessage(message){
-                document.querySelector("#message").innerText = message;
-            }
+        function updateMessage(message) {
+            document.querySelector("#message").innerText = message;
+        }
 
-            function OnSolve() {
-                const FCId = document.getElementById('FunCaptcha-ID').value;
-                const token = document.getElementById('FunCaptcha-Token').value;
-                copyTextToClipboard(btoa(FCId+","+token));
-            }
+        function OnSolve() {
+            const FCId = document.getElementById("FunCaptcha-ID").value;
+            const token = document.getElementById("FunCaptcha-Token").value;
+            copyTextToClipboard(btoa(FCId + "," + token));
+        }
 
-            function loadChallenge() {
-                new FunCaptcha({
-                    public_key: "{{ funCaptchaPublicKeys }}",
-                    target_html: "CAPTCHA",
-                    data:{blob:"{{ data }}"},
-                    callback: OnSolve
-                });
-            }
-            window.addEventListener('load', function () {
-                loadChallenge()
-            })
+        function setupEnforcement(myEnforcement) {
+            myEnforcement.setConfig({
+                data: { blob: "{{ data }}" },
+                selector: "#submit-id",
+                onCompleted: function (response) {
+                    console.log("onCompleted");
+                    copyTextToClipboard(btoa("{{ id }}"+","+response.token));
+                },
+                onReady: function () {
+                    console.log("onReady");
+                    document.querySelector("#submit-id").click();
+                },
+                onReset: function () {
+                    console.log("onReset");
+                },
+                onShow: function () {
+                    console.log("onShow");
+                },
+                onShown: function () {
+                    console.log("onShown");
+                },
+                onError: function (response) {
+                    console.log("onError");
+                },
+            });
+        }
         </script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!-- Coded by Roblox Thot#0001 Do not claim you did this shit -->
     </head>
 
     <body>
-        <form id="captchaelem"  method="post">
-            <div id="victoryId"></div>
-            <input id="FunCaptcha-ID" value="{{ id }}" type="hidden">
-            <input type="hidden" id="fc-token">
-            <div id="CAPTCHA"></div>
-            <div id="Note">Currently broken</div>
+        <form method="post" target="_self">
+          <input type="submit" id="submit-id" onclick="return false;" style="display: none;">
         </form>
-        <div id="message">{{ message }}</div>
+        <div class="center" id="message">{{ message }}</div>
     </body>
 
 </html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!-- Coded by Roblox Thot#0001 Do not claim you did this shit -->
