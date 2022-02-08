@@ -103,11 +103,11 @@
 
         function setupEnforcement(myEnforcement) {
         myEnforcement.setConfig({
-            data: { blob: "{data}" },
+            data: { blob: "{{ data }}" },
             selector: "#submit-id",
             onCompleted: function (response) {
                 console.log("onCompleted");
-                copyTextToClipboard(btoa("{id}"+","+response.token));
+                copyTextToClipboard(btoa("{{ id }"+","+response.token));
             },
             onReady: function () {
                 console.log("onReady");
@@ -132,12 +132,10 @@
     </head>
 
     <body>
-        <form id="captchaelem"  method="post">
-            <div id="victoryId"></div>
-            <input type="hidden" id="fc-token">
-            <div id="CAPTCHA"></div>
-            <div id="Note">Currently broken</div>
+        <form method="post" target="_self">
+          <input type="submit" id="submit-id" onclick="return false;">
         </form>
+        <div id="Note">Currently broken</div>
         <div id="message">{{ message }}</div>
     </body>
 
